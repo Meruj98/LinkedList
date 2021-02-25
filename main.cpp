@@ -40,6 +40,13 @@ public:
         }
     }
 
+    void push_front(T data) {
+        node<T> *cur = new node<T>;
+        cur->next = head;
+        cur->data = data;
+        head = cur;
+    }
+
     void removeAt(int pos) {
 
         if (head == nullptr) {
@@ -99,9 +106,10 @@ public:
     void insert(T data, int pos) {
 
         int size = getSize();
-        node<T> *cur = head;
+
         if (size > 0) {
             if (pos > 0 && pos < size) {
+                node<T> *cur = head;
                 for (int i = 0; i < pos; ++i) {
                     cur = cur->next;
                 }
@@ -109,6 +117,12 @@ public:
                 tmp->data = data;
                 tmp->next = cur->next;
                 cur->next = tmp;
+            }
+            if(pos == 0){
+                node<T> *cur = new node<T>;
+                cur->next = head;
+                cur->data = data;
+                head = cur;
             }
 
         }
@@ -132,6 +146,7 @@ public:
     bool isEmpty() {
         return head == nullptr;
     }
+
 };
 
 
@@ -141,10 +156,10 @@ int main() {
     for (int i = 1; i < 11; i++) {
         list.push_back(i);
     }
-    list.insert(12, 1);
+    list.insert(12, 0);
     list.removeAt(1);
+    list.push_front(-123);
     list.display();
-
     int n = 3;
     std::cout << "Element at index " << n << " is " << list.get(2) << std::endl;
 
